@@ -32,16 +32,22 @@ public class MinimumConsecutiveCards {
         //     if cardValue was seen at j, update answer with (i - j + 1)
         //     then update lastIndexSeen for this cardValue to i
         // - If you never update the answer, return -1
-        int minLegnth = -1;
+        int minLegnth = Integer.MAX_VALUE;
         Map<Integer,Integer> map = new HashMap<>();
         for(int i=0;i<cards.length;i++){
             if(!map.containsKey(cards[i])){
                 map.put(cards[i],i);
             }else{
-              minLegnth = (i+1) - map.get(cards[i]);
-              return minLegnth;
+                if(((i+1) - map.get(cards[i])) < minLegnth){
+                    minLegnth = (i+1) - map.get(cards[i]);
+                }else{
+                    map.put(cards[i], i);
+                }
             }
         }
-        return -1;
+        if(minLegnth == Integer.MAX_VALUE){
+            return -1;
+        }
+        return minLegnth;
     }
 }
